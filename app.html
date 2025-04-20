@@ -109,12 +109,45 @@ canvas.emscripten { border: 0px none; background-color: black; }
     <div class="emscripten" id="status">Downloading...</div>
 
     <span id='controls'>
-      <span><input type="checkbox" id="resize">Resize canvas</span>
-      <span><input type="checkbox" id="pointerLock" checked>Lock/hide mouse pointer &nbsp;&nbsp;&nbsp;</span>
-      <span><input type="button" value="Fullscreen" onclick="Module.requestFullscreen(document.getElementById('pointerLock').checked, 
-                                                                                document.getElementById('resize').checked)">
-      </span>
+      <span><input type="checkbox" id="lineDraw" onchange="Module.ccall('toggleOutlineRender', null, []); console.log('draw line');" checked>Draw Outline</span>
     </span>
+
+    <label for="renderType">Render Output Type</label>
+    <select name="renderType" id="renderType" onchange="changeOutput(this.value)">
+      <option value="final">Final</option>
+      <option value="ao">Ambient Occlusion Only</option>
+      <option value="light">Lighting Only</option>
+      <option value="flat">Albedo</option>
+      <option value="indirect">Indirect Lighting</option>
+    </select>
+
+    <div>
+      <input type="range" id="aoRadius" name="aoRadius" min="0" max="100"/>
+      <label for="aoRadius">Ambient Occlusion Distance</label>
+    </div>
+
+    <div>
+      <input type="range" id="aoThickness" name="aoThickness" min="0" max="100"/>
+      <label for="aoThickness">Ambient Occlusion Thickness</label>
+    </div>
+
+    <div>
+      <input type="range" id="explodePct" name="explodePct" min="0" max="100" value="0"/>
+      <label for="explodePct">Explode Distance</label>
+    </div>
+
+    <div>
+      <input type="range" id="crossSectionPct" name="crossSectionPct" min="0" max="120" value="120"/>
+      <label for="crossSectionPct">Cross Section</label>
+    </div>
+
+    <div>
+      <button type="button" id="hideSelectionButton">Hide Selection</button>
+    </div>
+
+    <div>
+      <button type="button" id="showLastHiddenButton">Show Last Hidden</button>
+    </div>
 
     <div class="emscripten">
       <progress value="0" max="100" id="progress" hidden=1></progress>
@@ -124,6 +157,119 @@ canvas.emscripten { border: 0px none; background-color: black; }
       <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" tabindex=-1></canvas>
     </div>
     <textarea id="output" rows="8"></textarea>
+
+    <script>
+      function changeAmbientOccclusionRadius(value)
+      {
+        let setAmbientOcclusionSampleRadiusFunc = Module.cwrap('setAmbientOcclusionSampleRadius', null, ['number']);
+        setAmbientOcclusionSampleRadiusFunc(value);
+        console.log('ao radius ' + value);
+      }
+
+      function changeOutput(outputType)
+      {
+        let setSwapChainRenderFunc = Module.cwrap('setSwapChainRender', null, ['string', 'string']); 
+        var renderJobName = 'Final Composite Graphics';
+        var outputAttachmentName = 'Final Composite Output';
+        if(outputType == 'ao')
+        {
+          renderJobName = 'Ambient Occlusion Graphics';
+          outputAttachmentName = 'Ambient Occlusion Output';
+        }
+        else if(outputType == 'light')
+        {
+          renderJobName = 'PBR Graphics';
+          outputAttachmentName = 'PBR Output'
+        }
+        else if(outputType == 'flat')
+        {
+          renderJobName = 'Mesh Selection Graphics';
+          outputAttachmentName = 'Selection Output'
+        }
+        else if(outputType == 'indirect')
+        {
+          renderJobName = 'Ambient Occlusion Graphics';
+          outputAttachmentName = 'Indirect Lighting Output'
+        }
+
+        setSwapChainRenderFunc(renderJobName, outputAttachmentName);
+        console.log('set output ' + outputType);
+      }
+    </script>
+
+    <script>
+      var aoRadiusSlider = document.getElementById('aoRadius');
+      aoRadiusSlider.addEventListener('input', 
+        function()
+        {
+          let setAmbientOcclusionSampleRadiusFunc = Module.cwrap('setAmbientOcclusionSampleRadius', null, ['number']);
+          setAmbientOcclusionSampleRadiusFunc(aoRadiusSlider.value);
+          console.log('ao radius ' + aoRadiusSlider.value);
+        },
+        false 
+      );
+    </script>
+
+    <script>
+      var aoThicknessSlider = document.getElementById('aoThickness');
+      aoThicknessSlider.addEventListener('input',
+        function()
+        {
+          let setAmbientOcclusionThicknessFunc = Module.cwrap('setAmbientOcclusionThickness', null, ['number']);
+          setAmbientOcclusionThicknessFunc(aoThicknessSlider.value);
+          console.log('ao thickness ' + aoThicknessSlider.value);
+        },
+        false
+      );
+    </script>
+
+    <script>
+      var explodeSlider = document.getElementById('explodePct');
+      explodeSlider.addEventListener('input',
+        function()
+        {
+          let setExplodePctFunc = Module.cwrap('setExplodePct', null, ['number']);
+          setExplodePctFunc(explodeSlider.value);
+          console.log('explode distance ' + explodeSlider.value);
+        },
+        false
+      );
+    </script>
+
+<script>
+  var crossSectionSlider = document.getElementById('crossSectionPct');
+  crossSectionSlider.addEventListener('input',
+    function()
+    {
+      let setCrossSectionPlaneFunc = Module.cwrap('setCrossSectionPlane', null, ['number']);
+      setCrossSectionPlaneFunc(crossSectionSlider.value);
+      console.log('cross section pct ' + crossSectionSlider.value);
+    },
+    false
+  );
+</script>
+
+    <script>
+      var hideSelectionButton = document.getElementById('hideSelectionButton');
+      hideSelectionButton.addEventListener('click',
+        function()
+        {
+          let hideSelectionFunc = Module.cwrap('hideSelection', null, [null]);
+          hideSelectionFunc();
+        },
+        false
+      );
+
+      var showLastHiddenButton = document.getElementById('showLastHiddenButton');
+      showLastHiddenButton.addEventListener('click',
+        function()
+        {
+          let showLastHiddenFunc = Module.cwrap('showLastHidden', null, [null]);
+          showLastHiddenFunc();
+        },
+        false
+      );
+    </script>
 
     <script type='text/javascript'>
       var statusElement = document.getElementById('status');
