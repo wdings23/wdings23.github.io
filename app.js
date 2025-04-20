@@ -8926,6 +8926,7 @@ var _setExplodePct = Module['_setExplodePct'] = createExportWrapper('setExplodeP
 var _hideSelection = Module['_hideSelection'] = createExportWrapper('hideSelection', 0);
 var _showLastHidden = Module['_showLastHidden'] = createExportWrapper('showLastHidden', 0);
 var _setCrossSectionPlane = Module['_setCrossSectionPlane'] = createExportWrapper('setCrossSectionPlane', 1);
+var _toggleProjectionType = Module['_toggleProjectionType'] = createExportWrapper('toggleProjectionType', 0);
 var _main = Module['_main'] = createExportWrapper('main', 2);
 var _malloc = createExportWrapper('malloc', 1);
 var _free = createExportWrapper('free', 1);

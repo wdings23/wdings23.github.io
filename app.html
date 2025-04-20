@@ -149,6 +149,10 @@ canvas.emscripten { border: 0px none; background-color: black; }
       <button type="button" id="showLastHiddenButton">Show Last Hidden</button>
     </div>
 
+    <div>
+      <button type="button" id="toggleProjectionButton">Toggle Camera Projection Type</button>
+    </div>
+
     <div class="emscripten">
       <progress value="0" max="100" id="progress" hidden=1></progress>
     </div>
@@ -236,18 +240,18 @@ canvas.emscripten { border: 0px none; background-color: black; }
       );
     </script>
 
-<script>
-  var crossSectionSlider = document.getElementById('crossSectionPct');
-  crossSectionSlider.addEventListener('input',
-    function()
-    {
-      let setCrossSectionPlaneFunc = Module.cwrap('setCrossSectionPlane', null, ['number']);
-      setCrossSectionPlaneFunc(crossSectionSlider.value);
-      console.log('cross section pct ' + crossSectionSlider.value);
-    },
-    false
-  );
-</script>
+    <script>
+      var crossSectionSlider = document.getElementById('crossSectionPct');
+      crossSectionSlider.addEventListener('input',
+        function()
+        {
+          let setCrossSectionPlaneFunc = Module.cwrap('setCrossSectionPlane', null, ['number']);
+          setCrossSectionPlaneFunc(crossSectionSlider.value);
+          console.log('cross section pct ' + crossSectionSlider.value);
+        },
+        false
+      );
+    </script>
 
     <script>
       var hideSelectionButton = document.getElementById('hideSelectionButton');
@@ -266,6 +270,16 @@ canvas.emscripten { border: 0px none; background-color: black; }
         {
           let showLastHiddenFunc = Module.cwrap('showLastHidden', null, [null]);
           showLastHiddenFunc();
+        },
+        false
+      );
+
+      var toggleProjectionButton = document.getElementById('toggleProjectionButton');
+      toggleProjectionButton.addEventListener('click',
+        function()
+        {
+          let toggleProjectionTypeFunc = Module.cwrap('toggleProjectionType', null, [null]);
+          toggleProjectionTypeFunc();
         },
         false
       );
