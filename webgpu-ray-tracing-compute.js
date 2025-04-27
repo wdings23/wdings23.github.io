@@ -8902,15 +8902,10 @@ var wasmImports = {
 var wasmExports;
 createWasm();
 var ___wasm_call_ctors = createExportWrapper('__wasm_call_ctors', 0);
-var _toggleOutlineRender = Module['_toggleOutlineRender'] = createExportWrapper('toggleOutlineRender', 0);
-var _setSwapChainRender = Module['_setSwapChainRender'] = createExportWrapper('setSwapChainRender', 2);
-var _setAmbientOcclusionSampleRadius = Module['_setAmbientOcclusionSampleRadius'] = createExportWrapper('setAmbientOcclusionSampleRadius', 1);
-var _setAmbientOcclusionThickness = Module['_setAmbientOcclusionThickness'] = createExportWrapper('setAmbientOcclusionThickness', 1);
-var _setExplodePct = Module['_setExplodePct'] = createExportWrapper('setExplodePct', 1);
-var _hideSelection = Module['_hideSelection'] = createExportWrapper('hideSelection', 0);
-var _showLastHidden = Module['_showLastHidden'] = createExportWrapper('showLastHidden', 0);
-var _setCrossSectionPlane = Module['_setCrossSectionPlane'] = createExportWrapper('setCrossSectionPlane', 1);
-var _toggleProjectionType = Module['_toggleProjectionType'] = createExportWrapper('toggleProjectionType', 0);
+var _setEmissiveSurfaceValue = Module['_setEmissiveSurfaceValue'] = createExportWrapper('setEmissiveSurfaceValue', 1);
+var _setSunLightDirectionX = Module['_setSunLightDirectionX'] = createExportWrapper('setSunLightDirectionX', 1);
+var _setSunLightDirectionY = Module['_setSunLightDirectionY'] = createExportWrapper('setSunLightDirectionY', 1);
+var _setSunLightDirectionZ = Module['_setSunLightDirectionZ'] = createExportWrapper('setSunLightDirectionZ', 1);
 var _main = Module['_main'] = createExportWrapper('main', 2);
 var _malloc = createExportWrapper('malloc', 1);
 var _free = createExportWrapper('free', 1);
@@ -8952,7 +8947,7 @@ var _asyncify_start_unwind = createExportWrapper('asyncify_start_unwind', 1);
 var _asyncify_stop_unwind = createExportWrapper('asyncify_stop_unwind', 0);
 var _asyncify_start_rewind = createExportWrapper('asyncify_start_rewind', 1);
 var _asyncify_stop_rewind = createExportWrapper('asyncify_stop_rewind', 0);
-var ___emscripten_embedded_file_data = Module['___emscripten_embedded_file_data'] = 11656688;
+var ___emscripten_embedded_file_data = Module['___emscripten_embedded_file_data'] = 11658528;
 
 // include: postamble.js
 // === Auto-generated postamble setup entry stuff ===
