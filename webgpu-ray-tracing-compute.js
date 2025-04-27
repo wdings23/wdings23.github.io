@@ -7196,20 +7196,6 @@ async function createWasm() {
       return WebGPU.mgrRenderPassEncoder.create(commandEncoder.beginRenderPass(desc));
     };
 
-  
-  function _wgpuCommandEncoderCopyBufferToBuffer(encoderId, srcId, srcOffset, dstId, dstOffset, size) {
-    srcOffset = bigintToI53Checked(srcOffset);
-    dstOffset = bigintToI53Checked(dstOffset);
-    size = bigintToI53Checked(size);
-  
-  
-      var commandEncoder = WebGPU.mgrCommandEncoder.get(encoderId);
-      var src = WebGPU.mgrBuffer.get(srcId);
-      var dst = WebGPU.mgrBuffer.get(dstId);
-      commandEncoder.copyBufferToBuffer(src, srcOffset, dst, dstOffset, size);
-    ;
-  }
-
   var _wgpuCommandEncoderCopyTextureToTexture = (encoderId, srcPtr, dstPtr, copySizePtr) => {
       var commandEncoder = WebGPU.mgrCommandEncoder.get(encoderId);
       var copySize = WebGPU.makeExtent3D(copySizePtr);
@@ -8773,8 +8759,6 @@ var wasmImports = {
   /** @export */
   wgpuCommandEncoderBeginRenderPass: _wgpuCommandEncoderBeginRenderPass,
   /** @export */
-  wgpuCommandEncoderCopyBufferToBuffer: _wgpuCommandEncoderCopyBufferToBuffer,
-  /** @export */
   wgpuCommandEncoderCopyTextureToTexture: _wgpuCommandEncoderCopyTextureToTexture,
   /** @export */
   wgpuCommandEncoderFinish: _wgpuCommandEncoderFinish,
@@ -8968,7 +8952,7 @@ var _asyncify_start_unwind = createExportWrapper('asyncify_start_unwind', 1);
 var _asyncify_stop_unwind = createExportWrapper('asyncify_stop_unwind', 0);
 var _asyncify_start_rewind = createExportWrapper('asyncify_start_rewind', 1);
 var _asyncify_stop_rewind = createExportWrapper('asyncify_stop_rewind', 0);
-var ___emscripten_embedded_file_data = Module['___emscripten_embedded_file_data'] = 11658468;
+var ___emscripten_embedded_file_data = Module['___emscripten_embedded_file_data'] = 11656688;
 
 // include: postamble.js
 // === Auto-generated postamble setup entry stuff ===
