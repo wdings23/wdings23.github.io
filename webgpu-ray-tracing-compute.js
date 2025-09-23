@@ -7997,17 +7997,6 @@ async function createWasm() {
       pass.drawIndexed(indexCount, instanceCount, firstIndex, baseVertex, firstInstance);
     };
 
-  
-  function _wgpuRenderPassEncoderDrawIndexedIndirect(passId, indirectBufferId, indirectOffset) {
-    indirectOffset = bigintToI53Checked(indirectOffset);
-  
-  
-      var indirectBuffer = WebGPU.mgrBuffer.get(indirectBufferId);
-      var pass = WebGPU.mgrRenderPassEncoder.get(passId);
-      pass.drawIndexedIndirect(indirectBuffer, indirectOffset);
-    ;
-  }
-
   var _wgpuRenderPassEncoderEnd = (encoderId) => {
       var encoder = WebGPU.mgrRenderPassEncoder.get(encoderId);
       encoder.end();
@@ -8837,8 +8826,6 @@ var wasmImports = {
   /** @export */
   wgpuRenderPassEncoderDrawIndexed: _wgpuRenderPassEncoderDrawIndexed,
   /** @export */
-  wgpuRenderPassEncoderDrawIndexedIndirect: _wgpuRenderPassEncoderDrawIndexedIndirect,
-  /** @export */
   wgpuRenderPassEncoderEnd: _wgpuRenderPassEncoderEnd,
   /** @export */
   wgpuRenderPassEncoderPopDebugGroup: _wgpuRenderPassEncoderPopDebugGroup,
@@ -8947,7 +8934,7 @@ var _asyncify_start_unwind = createExportWrapper('asyncify_start_unwind', 1);
 var _asyncify_stop_unwind = createExportWrapper('asyncify_stop_unwind', 0);
 var _asyncify_start_rewind = createExportWrapper('asyncify_start_rewind', 1);
 var _asyncify_stop_rewind = createExportWrapper('asyncify_stop_rewind', 0);
-var ___emscripten_embedded_file_data = Module['___emscripten_embedded_file_data'] = 11719708;
+var ___emscripten_embedded_file_data = Module['___emscripten_embedded_file_data'] = 11719084;
 
 // include: postamble.js
 // === Auto-generated postamble setup entry stuff ===
